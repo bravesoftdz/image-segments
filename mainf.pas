@@ -35,7 +35,7 @@ var
 
 implementation
 
-uses ImageSegmentsUtils, CastleLCLUtils, CastleImages, CastleUtils;
+uses ImageSegmentsUtils, CastleLCLUtils, CastleImages, CastleUtils, ShowResultF;
 
 {$R *.lfm}
 
@@ -54,7 +54,8 @@ begin
     OutFileName := AppendToFilename(OpenPictureDialog1.FileName, '_out');
     DoImageSegments(OpenPictureDialog1.FileName,
       OutFileName, SpinRectWidth.Value, SpinRectHeight.Value);
-    ShowMessage('Wygenerowano "' + OutFileName + '".');
+    ShowResult.FileName:= OutFileName;
+    ShowResult.ShowModal;
   end;
 end;
 

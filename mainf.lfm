@@ -7,6 +7,7 @@ object Form1: TForm1
   Caption = 'Zamień obrazek na prostokąciki'
   ClientHeight = 340
   ClientWidth = 1000
+  Position = poDefault
   LCLVersion = '1.1'
   object BtnChooseSrcImage: TButton
     AnchorSideLeft.Control = CheckAvgRect
