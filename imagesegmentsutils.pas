@@ -11,7 +11,7 @@ var
   AvgRect: boolean = true;
   { Based on average rectangle color, convert it to either light or dark. }
   TwoColors: boolean = true;
-  TwoColorLevel: Byte = High(Byte) / 2;
+  TwoColorLevel: Byte = High(Byte) div 2;
   TwoColorDark: TVector3Byte = (20, 20, 20);
   TwoColorLight: TVector3Byte = (255, 100, 100);
   { Colors of bars dividing rectangles. }

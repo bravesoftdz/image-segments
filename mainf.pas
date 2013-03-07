@@ -15,10 +15,12 @@ type
   TForm1 = class(TForm)
     BtnChooseSrcImage: TButton;
     CheckAvgRect: TCheckBox;
-    CheckBWColors: TCheckBox;
+    CheckTwoColors: TCheckBox;
     LabelRectWidth: TLabel;
     LabelRectWidth1: TLabel;
+    LabelRectWidth2: TLabel;
     OpenPictureDialog1: TOpenPictureDialog;
+    SpinTwoColorsLevel: TSpinEdit;
     SpinRectWidth: TSpinEdit;
     SpinRectHeight: TSpinEdit;
     procedure BtnChooseSrcImageClick(Sender: TObject);
@@ -47,7 +49,8 @@ begin
   if OpenPictureDialog1.Execute then
   begin
     AvgRect := CheckAvgRect.Checked;
-    BWColors := CheckBWColors.Checked;
+    TwoColors := CheckTwoColors.Checked;
+    TwoColorLevel := SpinTwoColorsLevel.Value;
     OutFileName := AppendToFilename(OpenPictureDialog1.FileName, '_out');
     DoImageSegments(OpenPictureDialog1.FileName,
       OutFileName, SpinRectWidth.Value, SpinRectHeight.Value);
