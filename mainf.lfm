@@ -1,9 +1,8 @@
 object Form1: TForm1
-  Left = 169
+  Left = 506
   Height = 340
-  Top = 177
+  Top = 191
   Width = 1000
-  AutoSize = True
   Caption = 'Zamień obrazek na prostokąciki'
   ClientHeight = 340
   ClientWidth = 1000
@@ -129,6 +128,21 @@ object Form1: TForm1
     BorderSpacing.Right = 8
     Caption = 'Próg w/g którego zamieniamy na 2 kolory (używaj jeśli nie wychwytuje interesujacego kształtu)'
     ParentColor = False
+  end
+  object LabelURL: TLabel
+    AnchorSideLeft.Control = CheckAvgRect
+    Cursor = crHandPoint
+    Left = 8
+    Height = 25
+    Top = 264
+    Width = 394
+    BorderSpacing.Bottom = 8
+    Caption = 'https://github.com/michaliskambi/image-segments'
+    Font.Color = clBlue
+    Font.Style = [fsUnderline]
+    ParentColor = False
+    ParentFont = False
+    OnClick = LabelURLClick
   end
   object OpenPictureDialog1: TOpenPictureDialog
     left = 489

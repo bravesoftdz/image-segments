@@ -16,6 +16,7 @@ type
     BtnChooseSrcImage: TButton;
     CheckAvgRect: TCheckBox;
     CheckTwoColors: TCheckBox;
+    LabelURL: TLabel;
     LabelRectWidth: TLabel;
     LabelRectWidth1: TLabel;
     LabelRectWidth2: TLabel;
@@ -24,6 +25,7 @@ type
     SpinRectWidth: TSpinEdit;
     SpinRectHeight: TSpinEdit;
     procedure BtnChooseSrcImageClick(Sender: TObject);
+    procedure LabelURLClick(Sender: TObject);
   private
     { private declarations }
   public
@@ -35,7 +37,8 @@ var
 
 implementation
 
-uses ImageSegmentsUtils, CastleLCLUtils, CastleImages, CastleUtils, ShowResultF;
+uses ImageSegmentsUtils, CastleLCLUtils, CastleImages, CastleUtils, ShowResultF,
+  LCLIntf;
 
 {$R *.lfm}
 
@@ -57,6 +60,11 @@ begin
     ShowResult.FileName:= OutFileName;
     ShowResult.ShowModal;
   end;
+end;
+
+procedure TForm1.LabelURLClick(Sender: TObject);
+begin
+  OpenURL((Sender as TLabel).Caption);
 end;
 
 end.
