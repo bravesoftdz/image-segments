@@ -3,6 +3,7 @@ object ShowResult: TShowResult
   Height = 750
   Top = 57
   Width = 635
+  ActiveControl = ButtonClose
   AutoSize = True
   Caption = 'Podgląd wyniku'
   ClientHeight = 750
@@ -32,7 +33,7 @@ object ShowResult: TShowResult
     BorderSpacing.Bottom = 8
     Caption = 'Zamknij'
     ModalResult = 11
-    TabOrder = 0
+    TabOrder = 2
   end
   object LabelResult: TLabel
     AnchorSideLeft.Control = Image1
@@ -77,6 +78,6 @@ object ShowResult: TShowResult
     BorderSpacing.Right = 8
     Caption = 'Otwórz obrazek'
     OnClick = ButtonOpenImageClick
-    TabOrder = 2
+    TabOrder = 0
   end
 end

@@ -1,8 +1,10 @@
 object Form1: TForm1
-  Left = 506
+  Left = 278
   Height = 340
   Top = 191
   Width = 1000
+  ActiveControl = BtnChooseSrcImage
+  AutoSize = True
   Caption = 'Zamień obrazek na prostokąciki'
   ClientHeight = 340
   ClientWidth = 1000
@@ -21,7 +23,7 @@ object Form1: TForm1
     BorderSpacing.Bottom = 8
     Caption = 'Wybierz obrazek i zapisz wynik'
     OnClick = BtnChooseSrcImageClick
-    TabOrder = 0
+    TabOrder = 5
   end
   object CheckAvgRect: TCheckBox
     Left = 8
@@ -33,7 +35,7 @@ object Form1: TForm1
     Caption = 'Uśredniaj kolory w prostokątach'
     Checked = True
     State = cbChecked
-    TabOrder = 1
+    TabOrder = 0
   end
   object CheckTwoColors: TCheckBox
     AnchorSideLeft.Control = CheckAvgRect
@@ -47,7 +49,7 @@ object Form1: TForm1
     Caption = 'Zamieniaj uśrednione kolory (na podstawie jasności) na 2 kolory'
     Checked = True
     State = cbChecked
-    TabOrder = 2
+    TabOrder = 1
   end
   object SpinRectWidth: TSpinEdit
     AnchorSideLeft.Control = CheckAvgRect
@@ -112,7 +114,7 @@ object Form1: TForm1
     BorderSpacing.Top = 8
     Increment = 10
     MaxValue = 255
-    TabOrder = 5
+    TabOrder = 2
     Value = 128
   end
   object LabelRectWidth2: TLabel
@@ -131,11 +133,14 @@ object Form1: TForm1
   end
   object LabelURL: TLabel
     AnchorSideLeft.Control = CheckAvgRect
+    AnchorSideTop.Control = BtnChooseSrcImage
+    AnchorSideTop.Side = asrBottom
     Cursor = crHandPoint
     Left = 8
     Height = 25
     Top = 264
     Width = 394
+    BorderSpacing.Top = 16
     BorderSpacing.Bottom = 8
     Caption = 'https://github.com/michaliskambi/image-segments'
     Font.Color = clBlue
