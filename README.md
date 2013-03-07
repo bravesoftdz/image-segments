@@ -9,10 +9,6 @@ See the images in demo/ subdirectory for examples how does it look like
 As I understand, such segmented (simplified) image version is very helpful
 when manully knitting the image pattern.
 
-Simple fractals demo using
-Castle Game Engine [http://castle-engine.sourceforge.net/]
-utilities (TCastleWindow and other helpers).
-
 Compilation
 ===========
 
@@ -28,7 +24,7 @@ The code uses the Castle Game Engine
 
 To compile:
 * Get Castle Game Engine [http://castle-engine.sourceforge.net/engine.php],
-* In Lazarys install Castle Game Engine packages
+* In Lazarus install Castle Game Engine packages
   (castle_game_engine/packages/castle_components.lpk),
 * Then open imagesegments.lpi in Lazarus and compile it as usual.
 
