@@ -92,37 +92,38 @@ begin
   SrcImage := LoadImage(SrcImageFilename, [TRGBImage]) as TRGBImage;
   try
     OutImage := TRGBImage.Create(
-      SrcImage.Width div RectWidth + SrcImage.Width + 1,
-      SrcImage.Height div RectHeight + SrcImage.Height + 1);
+      SrcImage.Width div RectWidth + SrcImage.Width,
+      SrcImage.Height div RectHeight + SrcImage.Height);
 
     YOut := 0;
     RectY := 0;
     for Y := 0 to SrcImage.Height - 1 do
     begin
-      XOut := 0;
-      RectX := 0;
-      for X := 0 to SrcImage.Width - 1 do
-      begin
-        if AvgRect then
-          PVector3Byte(OutImage.PixelPtr(XOut, YOut))^ := RectAvgColor(RectX, RectY) else
-          PVector3Byte(OutImage.PixelPtr(XOut, YOut))^ := PVector3Byte(SrcImage.PixelPtr(X, Y))^;
-        Inc(XOut);
-        if X mod RectWidth = 0 then
-        begin
-          PVector3Byte(OutImage.PixelPtr(XOut, YOut))^ := BorderColor;
-          Inc(XOut);
-          Inc(RectX);
-        end;
-      end;
-      Inc(YOut);
-
       if Y mod RectHeight = 0 then
       begin
         for XOut := 0 to OutImage.Width - 1 do
           PVector3Byte(OutImage.PixelPtr(XOut, YOut))^ := BorderColor;
-        Inc(YOut);
+        Inc(YOut); if YOut >= OutImage.Height then Break;
         Inc(RectY);
       end;
+
+      XOut := 0;
+      RectX := 0;
+      for X := 0 to SrcImage.Width - 1 do
+      begin
+        if X mod RectWidth = 0 then
+        begin
+          PVector3Byte(OutImage.PixelPtr(XOut, YOut))^ := BorderColor;
+          Inc(XOut); if XOut >= OutImage.Width then Break;
+          Inc(RectX);
+        end;
+
+        if AvgRect then
+          PVector3Byte(OutImage.PixelPtr(XOut, YOut))^ := RectAvgColor(RectX, RectY) else
+          PVector3Byte(OutImage.PixelPtr(XOut, YOut))^ := PVector3Byte(SrcImage.PixelPtr(X, Y))^;
+        Inc(XOut); if XOut >= OutImage.Width then Break;
+      end;
+      Inc(YOut); if YOut >= OutImage.Height then Break;
     end;
 
     SaveImage(OutImage, OutImageFilename);
