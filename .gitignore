@@ -1,0 +1,7 @@
+*~
+*.o
+*.ppu
+*.lps
+imagesegments
+imagesegments_console
+lib
