@@ -38,8 +38,8 @@ var
 
   function RectAvgColor(const RectX, RectY: Integer): TVector3Byte;
   var
-    X, Y: Integer;
-    Avg: TVector3Double; // Double to keep the sum of many bytes; TODO: QWord would be better?
+    X, Y, X1, X2, Y1, Y2: Integer;
+    Avg: TVector3Double; // Double to keep the sum of many bytes
     Count: Cardinal;
   begin
     if RectAvgColorCache and
@@ -47,32 +47,30 @@ var
        (RectAvgColorCacheY = RectY) then
       Exit(RectAvgColorCacheResult);
 
-    Count := 0;
-    Avg := Vector3Double(0, 0, 0);
-    for X := RectX * RectWidth to (RectX + 1) * RectWidth - 1 do
-      for Y := RectY * RectHeight to (RectY + 1) * RectHeight - 1 do
-      begin
-        if Between(X, 0, SrcImage.Width - 1) and
-           Between(Y, 0, SrcImage.Height - 1) then
+    X1 := Max(0, RectX * RectWidth);
+    X2 := Min(SrcImage.Width - 1, (RectX + 1) * RectWidth - 1);
+    Y1 := Max(0, RectY * RectHeight);
+    Y2 := Min(SrcImage.Height - 1, (RectY + 1) * RectHeight - 1);
+
+    Count := (X2 - X1 + 1) * (Y2 - Y1 + 1);
+    if Count <> 0 then
+    begin
+      Avg := Vector3Double(0, 0, 0);
+      for X := X1 to X2 do
+        for Y := Y1 to Y2 do
         begin
           Avg[0] += PVector3Byte(SrcImage.PixelPtr(X, Y))^[0];
           Avg[1] += PVector3Byte(SrcImage.PixelPtr(X, Y))^[1];
           Avg[2] += PVector3Byte(SrcImage.PixelPtr(X, Y))^[2];
-          Inc(Count);
         end;
-      end;
-    // Writeln(VectorToNiceStr(Avg));
-    // Writeln(Count);
-    // Writeln(RectX);
-    // Writeln(RectY);
-    if Count = 0 then
-      { may happen in case rect is outside our range }
-      Result := Vector3Byte(0, 0, 0) else
       Result := Vector3Byte(
         Clamped(Round(Avg[0] / Count), Low(Byte), High(Byte)),
         Clamped(Round(Avg[1] / Count), Low(Byte), High(Byte)),
         Clamped(Round(Avg[2] / Count), Low(Byte), High(Byte))
       );
+    end else
+      { may happen in case rect is outside our range }
+      Result := Vector3Byte(0, 0, 0);
 
     if TwoColors then
       if GrayscaleValue(Result) > TwoColorLevel then
@@ -96,7 +94,7 @@ begin
       SrcImage.Height div RectHeight + SrcImage.Height);
 
     YOut := 0;
-    RectY := 0;
+    RectY := -1; { in the 1st loop iteration this will become 0 }
     for Y := 0 to SrcImage.Height - 1 do
     begin
       if Y mod RectHeight = 0 then
@@ -108,7 +106,7 @@ begin
       end;
 
       XOut := 0;
-      RectX := 0;
+      RectX := -1; { in the 1st loop iteration this will become 0 }
       for X := 0 to SrcImage.Width - 1 do
       begin
         if X mod RectWidth = 0 then
