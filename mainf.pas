@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  Spin, ExtDlgs;
+  Spin, ExtDlgs, CastleDialogs;
 
 type
 
@@ -20,7 +20,7 @@ type
     LabelRectWidth: TLabel;
     LabelRectWidth1: TLabel;
     LabelRectWidth2: TLabel;
-    OpenPictureDialog1: TOpenPictureDialog;
+    OpenDialog: TCastleOpenImageDialog;
     SpinTwoColorsLevel: TSpinEdit;
     SpinRectWidth: TSpinEdit;
     SpinRectHeight: TSpinEdit;
@@ -48,15 +48,14 @@ procedure TForm1.BtnChooseSrcImageClick(Sender: TObject);
 var
   OutFileName: string;
 begin
-  FileFiltersToDialog(LoadImage_FileFilters, OpenPictureDialog1);
-  if OpenPictureDialog1.Execute then
+  if OpenDialog.Execute then
   begin
     AvgRect := CheckAvgRect.Checked;
     TwoColors := CheckTwoColors.Checked;
     TwoColorLevel := SpinTwoColorsLevel.Value;
-    OutFileName := AppendToFilename(OpenPictureDialog1.FileName, '_out');
-    DoImageSegments(OpenPictureDialog1.FileName,
-      OutFileName, SpinRectWidth.Value, SpinRectHeight.Value);
+    OutFileName := AppendToFilename(OpenDialog.FileName, '_out');
+    DoImageSegments(OpenDialog.URL, OutFileName,
+      SpinRectWidth.Value, SpinRectHeight.Value);
     ShowResult.FileName:= OutFileName;
     ShowResult.ShowModal;
   end;

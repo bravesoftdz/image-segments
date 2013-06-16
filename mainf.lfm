@@ -149,7 +149,7 @@ object Form1: TForm1
     ParentFont = False
     OnClick = LabelURLClick
   end
-  object OpenPictureDialog1: TOpenPictureDialog
+  object OpenDialog: TCastleOpenImageDialog
     left = 489
     top = 187
   end
