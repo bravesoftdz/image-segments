@@ -1,12 +1,12 @@
 uses SysUtils, ImageSegmentsUtils, CastleParameters;
 var
-  SrcImageFilename, OutImageFilename: string;
+  SrcImageURL, OutImageURL: string;
   RectWidth, RectHeight: Integer;
 begin
   Parameters.CheckHigh(4);
-  SrcImageFilename := Parameters[1];
-  OutImageFilename := Parameters[2];
+  SrcImageURL := Parameters[1];
+  OutImageURL := Parameters[2];
   RectWidth := StrToInt(Parameters[3]);
   RectHeight := StrToInt(Parameters[4]);
-  DoImageSegments(SrcImageFilename, OutImageFilename, RectWidth, RectHeight);
+  DoImageSegments(SrcImageURL, OutImageURL, RectWidth, RectHeight);
 end.

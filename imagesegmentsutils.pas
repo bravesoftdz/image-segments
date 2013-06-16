@@ -17,16 +17,16 @@ var
   { Colors of bars dividing rectangles. }
   BorderColor: TVector3Byte = (0, 0, 0);
 
-procedure DoImageSegments(const SrcImageFilename: string;
-  const OutImageFilename: string;
+procedure DoImageSegments(const SrcImageURL: string;
+  const OutImageURL: string;
   const RectWidth, RectHeight: Integer);
 
 implementation
 
 uses SysUtils, CastleImages, CastleUtils, CastleColors;
 
-procedure DoImageSegments(const SrcImageFilename: string;
-  const OutImageFilename: string;
+procedure DoImageSegments(const SrcImageURL: string;
+  const OutImageURL: string;
   const RectWidth, RectHeight: Integer);
 var
   SrcImage: TRGBImage;
@@ -87,7 +87,7 @@ var
   X, Y, XOut, YOut, RectX, RectY: Integer;
   OutImage: TCastleImage;
 begin
-  SrcImage := LoadImage(SrcImageFilename, [TRGBImage]) as TRGBImage;
+  SrcImage := LoadImage(SrcImageURL, [TRGBImage]) as TRGBImage;
   try
     OutImage := TRGBImage.Create(
       SrcImage.Width div RectWidth + SrcImage.Width,
@@ -124,7 +124,7 @@ begin
       Inc(YOut); if YOut >= OutImage.Height then Break;
     end;
 
-    SaveImage(OutImage, OutImageFilename);
+    SaveImage(OutImage, OutImageURL);
   finally
     FreeAndNil(SrcImage);
     FreeAndNil(OutImage);
